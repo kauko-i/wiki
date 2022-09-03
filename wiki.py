@@ -16,7 +16,7 @@ def link2nimi(link):
     return link.replace('_', ' ').replace('%C3%A4', 'ä').replace('%C3%B6', 'ö').replace('%C3%96', 'Ö').replace('%C3%84', 'Ä')
 
 # Testaa, löytyykö annetunnimistä artikkelia
-def exist(artikkeli):
+def exists(artikkeli):
     if artikkeli in EXISTENCE:
         return EXISTENCE[artikkeli]
     exists = True
@@ -85,16 +85,17 @@ def reitti(a1, a2):
 print('Wikipedian polunetsintä!')
 while True:
     a1 = input('Artikkeli 1>')
-    while not exist(nimi2link(a1)):
+    while not exists(nimi2link(a1)):
         print('Artikkelia {} ei vaikuta olevan.'.format(a1))
         a1 = input('Artikkeli 1>')
     a2 = input('Artikkeli 2>')
-    while not exist(nimi2link(a2)):
+    while not exists(nimi2link(a2)):
         print('Artikkelia {} ei vaikuta olevan.'.format(a2))
-        a2 = input('Artikkeli 1>')
+        a2 = input('Artikkeli 2>')
     print('Etsitään...')
     r = reitti(nimi2link(a1), nimi2link(a2))
+    if r == 'Ei reittiä':
+        print('Reittiä ei löytynyt.')
     print('Reitti: ', ' -> '.join(list(map(link2nimi, r))))
-    print(len(LINKIT))
     if input('Jatketaanko (k/e)?>') == 'e':
         break
